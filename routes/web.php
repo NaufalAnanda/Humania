@@ -9,3 +9,7 @@ Route::get('/', function () {
 Route::post('/login', function () {
     return "Logika login akan dibuat di sini nanti.";
 })->name('login');
+
+Route::get('dashboard', function () {
+    return view('dashboard');
+});
