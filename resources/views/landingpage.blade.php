@@ -32,7 +32,7 @@
         </h1>
 
         <div class="flex items-center gap-6">
-            <a href="#" class="text-gray-600 hover:text-blue-600">Sign In</a>
+            <a href="{{ route('login') }}" class="text-gray-600 hover:text-blue-600">Sign In</a>
             <a href="#" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition">
                 Sign Up
             </a>
@@ -66,9 +66,9 @@
 
     <!-- IMAGE -->
     <div class="flex justify-center items-center flex-grow z-10">
-    <img 
-        src="{{ asset('images/dashboard.png') }}" 
-        alt="Ilustrasi Dashboard Humania" 
+    <img
+        src="{{ asset('images/dashboard.png') }}"
+        alt="Ilustrasi Dashboard Humania"
         class="w-3/4 max-w-md object-contain"
     >
 </div>
