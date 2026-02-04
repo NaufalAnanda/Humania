@@ -158,7 +158,7 @@
                             </td>
                         </tr>
 
-                        <!-- SUDAH DIKERJAKAN - TIDAK LOLOS -->u
+                        <!-- SUDAH DIKERJAKAN - TIDAK LOLOS -->
                         <tr>
                             <td class="py-4">
                                 Tes Kepribadian Dasar
