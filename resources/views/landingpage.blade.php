@@ -32,8 +32,8 @@
         </h1>
 
         <div class="flex items-center gap-6">
-            <a href="#" class="text-gray-600 hover:text-blue-600">Sign In</a>
-            <a href="#" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition">
+            <a href="login" class="text-gray-600 hover:text-blue-600">Sign In</a>
+            <a href="register" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition">
                 Sign Up
             </a>
         </div>
@@ -66,12 +66,12 @@
 
     <!-- IMAGE -->
     <div class="flex justify-center items-center flex-grow z-10">
-    <img 
-        src="{{ asset('images/dashboard.png') }}" 
-        alt="Ilustrasi Dashboard Humania" 
-        class="w-3/4 max-w-md object-contain"
-    >
-</div>
+        <img 
+            src="{{ asset('images/landingpage.png') }}" 
+            alt="Ilustrasi Landing Page Humania" 
+            class="w-3/4 max-w-md object-contain"
+        >
+    </div>
 </section>
 
 <!-- WHY -->
@@ -85,7 +85,6 @@
         </p>
 
         <div class="grid md:grid-cols-3 gap-8 text-left">
-            <!-- CARD -->
             <div class="bg-slate-50 p-8 rounded-2xl shadow-sm hover:shadow-md transition">
                 <h4 class="font-semibold text-lg mb-3">Multi-Modul Assessment</h4>
                 <p class="text-gray-600">
@@ -124,9 +123,9 @@
     </p>
 </section>
 
-<!-- FOOTER and COPYRIGHT -->
+<!-- FOOTER -->
 <footer class="bg-blue-800 text-white text-center py-5">
-    © <?= date('Y'); ?> Humania TalentMap. All rights reserved.
+    © {{ date('Y') }} Humania TalentMap. All rights reserved.
 </footer>
 
 </body>

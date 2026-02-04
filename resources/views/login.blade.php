@@ -43,7 +43,7 @@
                     <button class="w-1/2 py-2.5 rounded-md bg-white text-blue-600 font-semibold shadow-sm text-sm transition-all">
                         Masuk
                     </button>
-                    <a href="#" class="w-1/2 py-2.5 text-center rounded-md text-gray-500 font-medium hover:text-gray-700 text-sm transition-all">
+                    <a href="register" class="w-1/2 py-2.5 text-center rounded-md text-gray-500 font-medium hover:text-gray-700 text-sm transition-all">
                         Daftar
                     </a>
                 </div>
