@@ -2,16 +2,34 @@
 
 use Illuminate\Support\Facades\Route;
 
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+*/
+
+// 1. Halaman Depan (Landing Page)
 Route::get('/', function () {
     return view('landingpage');
 });
 
+// 2. Login: Tampilkan Form
 Route::get('/login', function () {
     return view('login');
-});
-
-Route::post('/login', function () {
-    return "Logika login akan dibuat di sini nanti.";
 })->name('login');
 
+// 3. Login: Proses Data (Saat tombol 'Masuk' diklik)
+Route::post('/login', function () {
+    return "Sedang memproses login...";
+});
 
+// 4. Register: Tampilkan Form
+Route::get('/register', function () {
+    return view('register');
+})->name('register');
+
+// 5. Register: Proses Data (Saat tombol 'Daftar' diklik) -- INI YANG BARU
+Route::post('/register', function () {
+    // Di sini nanti kita tulis kodingan simpan ke Database
+    return "Sedang memproses pendaftaran user baru...";
+});
