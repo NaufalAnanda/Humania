@@ -17,3 +17,7 @@ Route::get('/', function () {
 Route::get('/register', function () {
     return view('register');
 });
+
+Route::get('/undangan', function () {
+    return view('undangan');
+});
