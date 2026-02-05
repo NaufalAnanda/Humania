@@ -34,15 +34,22 @@
                 <span class="text-sm font-normal">TalentMap</span>
             </div>
 
-            <nav class="mt-6 space-y-1">
-                <a href="/dashboard" class="flex items-center gap-3 px-6 py-3 hover:bg-blue-700 rounded-r-full">
-                    📊 Dashboard
+                        <nav class="flex-1 px-4 space-y-2 mt-4">
+                <p class="px-4 text-xs font-semibold text-blue-200 uppercase tracking-wider mb-2">MENU</p>
+
+                <a href="dashboard" class="flex items-center gap-3 px-4 py-3 bg-blue-700 rounded-lg text-white font-medium transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                    Dashboard
                 </a>
-                <a href="/undangan" class="flex items-center gap-3 px-6 py-3 bg-blue-700 rounded-r-full">
-                    📩 Undangan
+
+                <a href="undangan" class="flex items-center gap-3 px-4 py-3 text-blue-100 hover:bg-blue-600 hover:text-white rounded-lg font-medium transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    Undangan
                 </a>
-                <a href="/hasil" class="flex items-center gap-3 px-6 py-3 hover:bg-blue-700 rounded-r-full">
-                    📈 Hasil
+
+                <a href="#" class="flex items-center gap-3 px-4 py-3 text-blue-100 hover:bg-blue-600 hover:text-white rounded-lg font-medium transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg>
+                    Hasil
                 </a>
             </nav>
         </div>

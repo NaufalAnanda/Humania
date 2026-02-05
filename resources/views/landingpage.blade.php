@@ -55,7 +55,7 @@
         </p>
 
         <div class="flex gap-4">
-            <a href="#" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition">
+            <a href="login" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition">
                 Mulai Sekarang →
             </a>
             <a href="#" class="border border-blue-600 text-blue-600 px-6 py-3 rounded-lg font-medium hover:bg-blue-50 transition">
