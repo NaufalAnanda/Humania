@@ -31,3 +31,7 @@ Route::post('/register', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+Route::get('/undangan', function () {
+    return view('undangan');
+})->name('undangan');
