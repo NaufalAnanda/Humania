@@ -2,12 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-*/
-
 // 1. Halaman Depan (Landing Page)
 Route::get('/', function () {
     return view('landingpage');
@@ -33,3 +27,7 @@ Route::post('/register', function () {
     // Di sini nanti kita tulis kodingan simpan ke Database
     return "Sedang memproses pendaftaran user baru...";
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');

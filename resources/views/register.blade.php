@@ -43,7 +43,7 @@
             <!-- TITLE -->
             <div class="mb-8">
                 <h2 class="text-2xl font-bold text-gray-900 mb-2">Mulai Sekarang</h2>
-                <p class="text-gray-600">Buat akun baru dalam hitungan detik.</p>
+                <p class="text-gray-600">Buat akun terlebih dahulu untuk memulai</p>
             </div>
 
             <!-- SWITCH -->

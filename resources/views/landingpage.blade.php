@@ -32,13 +32,8 @@
         </h1>
 
         <div class="flex items-center gap-6">
-<<<<<<< HEAD
             <a href="{{ route('login') }}" class="text-gray-600 hover:text-blue-600">Sign In</a>
-            <a href="#" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition">
-=======
-            <a href="login" class="text-gray-600 hover:text-blue-600">Sign In</a>
-            <a href="register" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition">
->>>>>>> 5b67205fcf951de1bd6257184c1a5e320646e0b6
+            <a href="{{ route('register') }}" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition">
                 Sign Up
             </a>
         </div>
@@ -71,21 +66,12 @@
 
     <!-- IMAGE -->
     <div class="flex justify-center items-center flex-grow z-10">
-<<<<<<< HEAD
     <img
-        src="{{ asset('images/dashboard.png') }}"
+        src="{{ asset('images/landingpage.png') }}"
         alt="Ilustrasi Dashboard Humania"
         class="w-3/4 max-w-md object-contain"
     >
 </div>
-=======
-        <img 
-            src="{{ asset('images/landingpage.png') }}" 
-            alt="Ilustrasi Landing Page Humania" 
-            class="w-3/4 max-w-md object-contain"
-        >
-    </div>
->>>>>>> 5b67205fcf951de1bd6257184c1a5e320646e0b6
 </section>
 
 <!-- WHY -->
