@@ -83,8 +83,8 @@
                        class="w-full px-5 py-3 rounded-full border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
             </div>
 
-             <!-- FILTER -->
-    <div id="filterTabs" class="bg-gray-200 rounded-full p-1 flex text-sm mb-6">
+            <!-- FILTER -->
+               <div id="filterTabs" class="bg-gray-200 rounded-full p-1 flex text-sm mb-6">
         <button data-status="all" class="filter-btn flex-1 bg-white rounded-full py-2 font-semibold">
             Semua
         </button>
