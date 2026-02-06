@@ -53,11 +53,8 @@
                 </button>
             </div>
         </aside>
-
-        <!-- MAIN -->
     <main class="flex-1 ml-64 p-8">
 
-        <!-- HEADER -->
         <div class="flex justify-between items-center mb-8">
             <div>
                 <h1 class="text-2xl font-bold">Hasil Assessment</h1>
@@ -69,10 +66,8 @@
             </button>
         </div>
 
-        <!-- CARD -->
         <div class="bg-white rounded-2xl shadow p-8">
 
-            <!-- AI HEADER -->
             <div class="flex justify-between items-center mb-6">
                 <div>
                     <h2 class="text-xl font-bold">Hasil Tes Ketelitian & Konsistensi Kerja</h2>
@@ -82,15 +77,13 @@
                     </p>
                 </div>
 
-                <button class="toggle-btn">
-                    ⌄
+                <button class="text-gray-500 hover:text-gray-800 text-2xl">
+                    <span class="toggle-btn cursor-pointer">⌄</span>
                 </button>
             </div>
 
-            <!-- CONTENT -->
             <div class="space-y-6 result-content">
 
-                <!-- RINGKASAN -->
                 <div class="bg-blue-50 rounded-xl p-6">
                     <h3 class="font-semibold mb-2">Ringkasan Profil</h3>
                     <p class="text-gray-600 text-sm">
@@ -99,7 +92,6 @@
                     </p>
                 </div>
 
-                <!-- GRID -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                     <div class="bg-green-50 rounded-xl p-6">
@@ -118,7 +110,6 @@
 
                 </div>
 
-                <!-- REKOMENDASI -->
                 <div class="bg-slate-50 rounded-xl p-6">
                     <h3 class="font-semibold mb-2">Rekomendasi Posisi</h3>
                     <p class="text-sm text-gray-600">
@@ -126,7 +117,6 @@
                     </p>
                 </div>
 
-                <!-- WAWANCARA -->
                 <div class="bg-slate-50 rounded-xl p-6">
                     <h3 class="font-semibold mb-2">Panduan Wawancara</h3>
                     <p class="text-sm text-gray-600">

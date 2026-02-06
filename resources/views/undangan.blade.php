@@ -83,148 +83,138 @@
                        class="w-full px-5 py-3 rounded-full border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
             </div>
 
-            <!-- FILTER -->
-            <div id="filterTabs" class="bg-gray-200 rounded-full p-1 flex text-sm mb-6">
-                <button data-filter="all"
-                    class="filter-btn flex-1 bg-white rounded-full py-2 font-semibold">
-                    Semua
-                </button>
-                <button data-filter="upcoming"
-                    class="filter-btn flex-1 py-2 text-gray-600">
-                    Akan Datang
-                </button>
-                <button data-filter="running"
-                    class="filter-btn flex-1 py-2 text-gray-600">
-                    Berlangsung
-                </button>
-                <button data-filter="finished"
-                    class="filter-btn flex-1 py-2 text-gray-600">
-                    Selesai
-                </button>
-                <button data-filter="late"
-                    class="filter-btn flex-1 py-2 text-gray-600">
-                    Terlambat
-                </button>
-            </div>
-            <script>
-                const buttons = document.querySelectorAll('.filter-btn');
-                const rows = document.querySelectorAll('tbody tr');
+             <!-- FILTER -->
+    <div id="filterTabs" class="bg-gray-200 rounded-full p-1 flex text-sm mb-6">
+        <button data-status="all" class="filter-btn flex-1 bg-white rounded-full py-2 font-semibold">
+            Semua
+        </button>
+        <button data-status="upcoming" class="filter-btn flex-1 py-2 text-gray-600">
+            Akan Datang
+        </button>
+        <button data-status="running" class="filter-btn flex-1 py-2 text-gray-600">
+            Berlangsung
+        </button>
+        <button data-status="finished" class="filter-btn flex-1 py-2 text-gray-600">
+            Selesai
+        </button>
+        <button data-status="late" class="filter-btn flex-1 py-2 text-gray-600">
+            Terlambat
+        </button>
+    </div>
 
-                buttons.forEach(button => {
-                    button.addEventListener('click', () => {
+    <!-- TABEL -->
+    <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+            <thead>
+                <tr class="border-b text-gray-500 text-left">
+                    <th class="py-3">Nama Test</th>
+                    <th>Kode</th>
+                    <th>Jadwal</th>
+                    <th>Status</th>
+                    <th>Keterangan</th>
+                </tr>
+            </thead>
 
-                        // ===== BUTTON STYLE =====
-                        buttons.forEach(btn => {
-                            btn.classList.remove('bg-white', 'rounded-full', 'font-semibold');
-                            btn.classList.add('text-gray-600');
-                        });
+            <tbody id="tableBody" class="divide-y divide-gray-200">
 
-                        button.classList.add('bg-white', 'rounded-full', 'font-semibold');
-                        button.classList.remove('text-gray-600');
+                <tr data-status="upcoming">
+                    <td class="py-4">Tes Ketelitian & Konsistensi Kerja</td>
+                    <td class="text-gray-500">GRQ0HG</td>
+                    <td class="text-gray-500 text-xs">19/01/26 11:00 - 11:20</td>
+                    <td>
+                        <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs">
+                            Belum dikerjakan
+                        </span>
+                    </td>
+                    <td>
+                        <button class="bg-blue-600 text-white px-4 py-2 rounded-full text-xs">
+                            Mulai Test
+                        </button>
+                    </td>
+                </tr>
 
-                        // ===== FILTER DATA =====
-                        const filter = button.dataset.filter;
+                <tr data-status="running">
+                    <td class="py-4">Tes Logika Dasar</td>
+                    <td class="text-gray-500">LKD221</td>
+                    <td class="text-gray-500 text-xs">19/01/26 11:20 - 11:40</td>
+                    <td>
+                        <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs">
+                            Berlangsung
+                        </span>
+                    </td>
+                    <td>
+                        <button class="bg-blue-600 text-white px-4 py-2 rounded-full text-xs">
+                            Lanjutkan
+                        </button>
+                    </td>
+                </tr>
 
-                        rows.forEach(row => {
-                            if (filter === 'all' || row.dataset.status === filter) {
-                                row.style.display = '';
-                            } else {
-                                row.style.display = 'none';
-                            }
-                        });
-                    });
-                });
-            </script>
+                <tr data-status="finished">
+                    <td class="py-4">Tes Sikap & Tanggung Jawab Kerja</td>
+                    <td class="text-gray-500">GKSHTY</td>
+                    <td class="text-gray-500 text-xs">19/01/26 11:40 - 12:00</td>
+                    <td>
+                        <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs">
+                            Selesai
+                        </span>
+                    </td>
+                    <td>
+                        <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">
+                            Lolos
+                        </span>
+                    </td>
+                </tr>
 
-            <!-- TABLE -->
-            <div class="overflow-x-auto">
-                <table class="w-full text-sm">
-                    <thead>
-                        <tr class="border-b text-gray-500 text-left">
-                            <th class="py-3">Nama test</th>
-                            <th>Code test</th>
-                            <th>Jadwal</th>
-                            <th>Status</th>
-                            <th>Keterangan</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y">
+                <tr data-status="late">
+                    <td class="py-4">Tes Kepribadian Dasar</td>
+                    <td class="text-gray-500">TRP9AA</td>
+                    <td class="text-gray-500 text-xs">18/01/26 10:00 - 10:30</td>
+                    <td>
+                        <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs">
+                            Selesai
+                        </span>
+                    </td>
+                    <td>
+                        <span class="bg-red-100 text-red-600 px-3 py-1 rounded-full text-xs">
+                            Tidak Lolos
+                        </span>
+                    </td>
+                </tr>
 
-                         <!-- BELUM DIKERJAKAN -->
-                    <tr>
-                            <td class="py-4">
-                                Tes Ketelitian & Konsistensi Kerja
-                            </td>
-                            <td class="text-gray-500">GRQ0HG</td>
-                            <td class="text-gray-500 text-xs">
-                                Mulai: 19/01/26 11:00<br>
-                                Selesai: 19/01/26 11:20
-                            </td>
-                            <td>
-                                <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs">
-                                    Belum dikerjakan
-                                </span>
-                            </td>
-                            <td>
-                                <a href="#"
-                                class="bg-blue-600 text-white px-4 py-2 rounded-full text-xs hover:bg-blue-700 transition">
-                                    Mulai Test
-                                </a>
-                            </td>
-                        </tr>
-
-                        <!-- SUDAH DIKERJAKAN - LOLOS -->
-                        <tr>
-                            <td class="py-4">
-                                Tes Sikap & Tanggung Jawab Kerja
-                            </td>
-                            <td class="text-gray-500">GKSHTY</td>
-                            <td class="text-gray-500 text-xs">
-                                Mulai: 19/01/26 11:20<br>
-                                Selesai: 19/01/26 11:40
-                            </td>
-                            <td>
-                                <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs">
-                                    Selesai
-                                </span>
-                            </td>
-                            <td>
-                                <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs">
-                                    Lolos
-                                </span>
-                            </td>
-                        </tr>
-
-                        <!-- SUDAH DIKERJAKAN - TIDAK LOLOS -->
-                        <tr>
-                            <td class="py-4">
-                                Tes Kepribadian Dasar
-                            </td>
-                            <td class="text-gray-500">TRP9AA</td>
-                            <td class="text-gray-500 text-xs">
-                                Mulai: 18/01/26 10:00<br>
-                                Selesai: 18/01/26 10:30
-                            </td>
-                            <td>
-                                <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs">
-                                    Selesai
-                                </span>
-                            </td>
-                            <td>
-                                <span class="bg-red-100 text-red-600 px-3 py-1 rounded-full text-xs">
-                                    Tidak Lolos
-                                </span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-        </div>
-
-    </main>
-
+            </tbody>
+        </table>
+    </div>
 </div>
+
+<!-- JAVASCRIPT FILTER -->
+<script>
+const buttons = document.querySelectorAll('.filter-btn');
+const rows = document.querySelectorAll('#tableBody tr');
+
+buttons.forEach(button => {
+    button.addEventListener('click', () => {
+        const status = button.dataset.status;
+
+        // reset style tombol
+        buttons.forEach(btn => {
+            btn.classList.remove('bg-white', 'rounded-full', 'font-semibold');
+            btn.classList.add('text-gray-600');
+        });
+
+        // aktifkan tombol
+        button.classList.add('bg-white', 'rounded-full', 'font-semibold');
+        button.classList.remove('text-gray-600');
+
+        // filter tabel
+        rows.forEach(row => {
+            row.style.display =
+                status === 'all' || row.dataset.status === status
+                ? ''
+                : 'none';
+        });
+    });
+});
+</script>
 
 </body>
 </html>
