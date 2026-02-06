@@ -35,3 +35,7 @@ Route::get('/dashboard', function () {
 Route::get('/undangan', function () {
     return view('undangan');
 })->name('undangan');
+
+Route::get('/hasil', function () {
+    return view('hasil');
+})->name('hasil');
