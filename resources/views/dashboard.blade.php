@@ -26,7 +26,7 @@
                     Dashboard
                 </a>
 
-                <a href="undangan" class="flex items-center gap-3 px-4 py-3 text-blue-100 hover:bg-blue-600 hover:text-white rounded-lg font-medium transition">
+                <a href="{{ route('undangan') }}" class="flex items-center gap-3 px-4 py-3 text-blue-100 hover:bg-blue-600 hover:text-white rounded-lg font-medium transition">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                     Undangan
                 </a>
@@ -47,10 +47,10 @@
                         <p class="text-xs text-blue-200 truncate w-32">naufal@gmail.com</p>
                     </div>
                 </div>
-                <button class="flex items-center gap-2 text-sm text-blue-200 hover:text-white transition w-full">
+                <a href="{{ route('login') }}" class="flex items-center gap-2 text-sm text-blue-200 hover:text-white transition w-full">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                     Keluar
-                </button>
+                </a>
             </div>
         </aside>
 
@@ -62,79 +62,38 @@
                         <h2 class="text-blue-600 font-bold text-lg mb-1">Selamat Datang,</h2>
                         <h1 class="text-4xl font-bold text-gray-900 mb-4">Naufal!</h1>
                         <p class="text-gray-500 max-w-xl">
-                            Selesaikan modul-modul assessment berikut untuk mengetahui potensi dan profil kepribadian Anda.
+                            Saat ini belum ada modul assessment yang tersedia. Silakan tunggu informasi selanjutnya dari Recruiter.
                         </p>
                     </div>
-                    <span class="bg-blue-100 text-blue-700 px-4 py-1.5 rounded-full text-sm font-semibold">
-                        7 Modul
+                    <span class="bg-gray-100 text-gray-500 px-4 py-1.5 rounded-full text-sm font-semibold">
+                        0 Modul
                     </span>
                 </div>
             </div>
 
-            <div class="relative mb-8">
+            <div class="relative mb-8 opacity-50 pointer-events-none">
                 <input type="text" placeholder="Cari berdasarkan code atau nama test"
-                    class="w-full pl-12 pr-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-gray-600">
+                    class="w-full pl-12 pr-4 py-3 bg-white border border-gray-300 rounded-lg outline-none text-gray-600" disabled>
                 <svg class="w-6 h-6 text-gray-400 absolute left-4 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="flex flex-col items-center justify-center py-20 px-4 bg-white rounded-xl shadow-sm border border-dashed border-gray-300 text-center">
 
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex flex-col">
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">Test Code</span>
-                        <span class="text-xs text-gray-500 flex items-center gap-1">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            Tidak dibatasi
-                        </span>
-                    </div>
-                    <h3 class="font-bold text-gray-900 text-lg mb-2 leading-tight">Tes Ketelitian & Konsistensi Kerja</h3>
-                    <div class="mb-4">
-                        <span class="border border-blue-500 text-blue-600 text-[10px] px-2 py-0.5 rounded-full font-medium">Sikap Kerja</span>
-                    </div>
-                    <p class="text-gray-500 text-sm mb-6 flex-grow">Mengukur ketelitian dan fokus.</p>
-                    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-lg transition text-sm flex items-center justify-center gap-2">
-                        Mulai Tes
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </button>
+                <div class="bg-blue-50 p-6 rounded-full mb-6">
+                    <svg class="w-16 h-16 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                    </svg>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex flex-col">
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">Test Code</span>
-                        <span class="text-xs text-gray-500 flex items-center gap-1">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            Tidak dibatasi
-                        </span>
-                    </div>
-                    <h3 class="font-bold text-gray-900 text-lg mb-2 leading-tight">Tes Penalaran & Problem Solving</h3>
-                    <div class="mb-4">
-                        <span class="border border-blue-500 text-blue-600 text-[10px] px-2 py-0.5 rounded-full font-medium">Kemampuan Kognitif</span>
-                    </div>
-                    <p class="text-gray-500 text-sm mb-6 flex-grow">Mengukur kemampuan logika dan penyelesaian masalah.</p>
-                    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-lg transition text-sm flex items-center justify-center gap-2">
-                        Mulai Tes
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </button>
-                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-3">Belum Ada Assessment</h3>
+                <p class="text-gray-500 text-lg max-w-md mx-auto mb-8 leading-relaxed">
+                    Saat ini belum ada tugas tes yang diberikan oleh admin. Mohon cek kembali secara berkala.
+                </p>
 
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex flex-col">
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">Test Code</span>
-                        <span class="text-xs text-gray-500 flex items-center gap-1">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            Tidak dibatasi
-                        </span>
-                    </div>
-                    <h3 class="font-bold text-gray-900 text-lg mb-2 leading-tight">Tes Minat & Kecocokan Peran (RIASEC)</h3>
-                    <div class="mb-4">
-                        <span class="border border-blue-500 text-blue-600 text-[10px] px-2 py-0.5 rounded-full font-medium">Minat Karir</span>
-                    </div>
-                    <p class="text-gray-500 text-sm mb-6 flex-grow">Mengukur minat karir.</p>
-                    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-lg transition text-sm flex items-center justify-center gap-2">
-                        Mulai Tes
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </button>
-                </div>
+                <button onclick="window.location.reload()" class="px-6 py-3 bg-white border border-gray-300 hover:bg-gray-50 hover:border-gray-400 text-gray-700 font-semibold rounded-lg transition shadow-sm flex items-center gap-2 cursor-pointer">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                    Muat Ulang Halaman
+                </button>
 
             </div>
 
