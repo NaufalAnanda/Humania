@@ -43,3 +43,7 @@ Route::get('/hasil', function () {
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 })->name('admin dashboard');
+
+Route::get('/admin/daftar_kandidat', function () {
+    return view('admin.daftar_kandidat');
+})->name('admin daftar kandidat');
