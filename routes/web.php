@@ -39,3 +39,7 @@ Route::get('/undangan', function () {
 Route::get('/hasil', function () {
     return view('hasil');
 })->name('hasil');
+
+Route::get('/admin/dashboard', function () {
+    return view('admin.dashboard');
+})->name('admin dashboard');
