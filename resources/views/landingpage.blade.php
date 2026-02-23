@@ -43,7 +43,7 @@
 <!-- HERO -->
 <section class="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center">
     <div>
-        <h2 class="text-4xl md:text-5xl font-bold leading-tight mb-6">
+        <h2 class="text-4xl md:text-5xl font-bold leading-tight mb-10">
             Platform Pemetaan Talenta untuk
             <span class="text-blue-600">Rekrutmen</span> &
             <span class="text-blue-600">Pengembangan Tim</span>
@@ -64,18 +64,16 @@
         </div>
     </div>
 
-    <!-- IMAGE -->
     <div class="flex justify-center items-center flex-grow z-10">
     <img
         src="{{ asset('images/landingpage.png') }}"
         alt="Ilustrasi Dashboard Humania"
-        class="w-3/4 max-w-md object-contain"
-    >
-</div>
+        class="w-3/4 max-w-md object-contain">
+    </div>
 </section>
 
 <!-- WHY -->
-<section class="bg-white py-20">
+<section class="bg-white py-20 mt-10">
     <div class="max-w-7xl mx-auto px-6 text-center">
         <h3 class="text-3xl font-bold mb-4">
             Mengapa Memilih Humania TalentMap?

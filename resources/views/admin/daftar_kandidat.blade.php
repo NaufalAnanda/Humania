@@ -29,29 +29,40 @@
                     Overview
                 </a>
 
-                <a href="#" class="flex items-center gap-3 px-4 py-3 bg-blue-700 rounded-lg text-white font-medium transition shadow-sm">
+                <a href="{{ url('/admin/daftar-kandidat') }}" class="flex items-center gap-3 px-4 py-3 bg-blue-700 rounded-lg text-white font-medium transition shadow-sm">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                     Daftar Kandidat
                 </a>
 
-                <a href="#" class="flex items-center gap-3 px-4 py-3 text-blue-100 hover:bg-blue-600 hover:text-white rounded-lg font-medium transition">
+                <a href="{{ url('/admin/buat-assesment') }}" class="flex items-center gap-3 px-4 py-3 text-blue-100 hover:bg-blue-600 hover:text-white rounded-lg font-medium transition">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
                     Buat Assesment
                 </a>
             </nav>
 
-            <div class="p-4 bg-blue-800">
+            <div class="p-4 bg-blue-800 mt-auto">
                 <div class="flex items-center gap-3 mb-4">
-                    <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-gray-600 font-bold border-2 border-white">A</div>
-                    <div>
-                        <p class="font-bold text-sm">Naufal</p>
-                        <p class="text-xs text-blue-200">Administrator</p>
+                    <div class="w-10 h-10 rounded-full bg-white text-blue-800 flex items-center justify-center font-bold border-2 border-blue-200">
+                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                    </div>
+                    <div class="overflow-hidden">
+                        <p class="font-bold text-sm text-white truncate">{{ Auth::user()->name }}</p>
+                        <p class="text-xs text-blue-200 truncate">{{ Auth::user()->email }}</p>
                     </div>
                 </div>
-                <a href="#" class="flex items-center gap-2 text-sm text-blue-200 hover:text-white transition w-full">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
-                    Keluar
+
+                <a href="{{ route('dashboard') }}" class="flex items-center gap-2 text-xs bg-blue-700 hover:bg-blue-600 text-white py-2 px-3 rounded-lg mb-3 transition shadow-sm border border-blue-600">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                    Lihat View Kandidat
                 </a>
+
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="flex items-center gap-2 text-sm text-blue-200 hover:text-red-300 transition w-full group py-1">
+                        <svg class="w-4 h-4 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                        Keluar
+                    </button>
+                </form>
             </div>
         </aside>
 
@@ -62,95 +73,78 @@
                     <h1 class="text-3xl font-bold text-gray-900">Daftar Kandidat</h1>
                     <p class="text-gray-500 mt-1">Lihat semua kandidat dan hasil assesment.</p>
                 </div>
-                <span class="bg-green-100 text-green-700 px-4 py-1.5 rounded-full text-sm font-semibold flex items-center gap-2">
+                <span class="bg-green-100 text-green-700 px-4 py-1.5 rounded-full text-sm font-semibold flex items-center gap-2 border border-green-200">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                    2 Kandidat
+                    {{ $kandidat->count() }} Kandidat
                 </span>
             </div>
 
             <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
 
-                <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
+                <div class="bg-gray-50 px-8 py-5 border-b border-gray-200">
                     <h3 class="font-bold text-gray-800">Semua Kandidat</h3>
                 </div>
 
-                <div class="grid grid-cols-12 gap-4 px-6 py-3 bg-white border-b border-gray-100 text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                    <div class="col-span-1">Rank</div>
+                <div class="grid grid-cols-12 gap-4 px-8 py-4 bg-white border-b border-gray-100 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
+                    <div class="col-span-1">ID</div>
                     <div class="col-span-4">Kandidat</div>
+                    <div class="col-span-2">Bergabung</div>
                     <div class="col-span-2">Modul</div>
-                    <div class="col-span-2">Skor</div>
                     <div class="col-span-2">Status</div>
                     <div class="col-span-1 text-right">Aksi</div>
                 </div>
 
                 <div class="divide-y divide-gray-100">
 
-                    <div class="grid grid-cols-12 gap-4 px-6 py-4 items-center hover:bg-gray-50 transition">
+                    @forelse($kandidat as $index => $user)
+                    <div class="grid grid-cols-12 gap-4 px-8 py-5 items-center hover:bg-gray-50 transition">
+
                         <div class="col-span-1">
-                            <div class="w-8 h-8 rounded-full bg-yellow-400 text-white font-bold flex items-center justify-center shadow-sm">
-                                1
+                            <span class="text-gray-500 font-bold ml-1">{{ $loop->iteration }}</span>
+                        </div>
+
+                        <div class="col-span-4">
+                            <div class="flex items-center gap-3">
+                                <div>
+                                    <h4 class="font-bold text-gray-900 text-sm">{{ $user->name }}</h4>
+                                    <p class="text-gray-500 text-xs mt-0.5">{{ $user->email }}</p>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="col-span-4">
-                            <h4 class="font-bold text-gray-900">Kandidat</h4>
-                            <p class="text-gray-500 text-sm">naufalananda79@gmail.com</p>
+                        <div class="col-span-2">
+                            <span class="text-gray-500 font-bold text-sm">{{ $user->created_at->format('d M Y') }}</span>
                         </div>
 
                         <div class="col-span-2">
-                            <span class="font-semibold text-gray-900">2</span> <span class="text-gray-500 text-sm">selesai</span>
-                        </div>
-
-                        <div class="col-span-2 flex items-center gap-2">
-                            <span class="font-bold text-gray-900">80</span>
-                            <span class="bg-green-100 text-green-700 text-[10px] font-bold px-2 py-0.5 rounded">HIGH</span>
+                            <span class="font-bold text-gray-900 text-sm">{{ $user->results_count }}</span>
+                            <span class="text-sm text-gray-500">selesai</span>
                         </div>
 
                         <div class="col-span-2">
-                            <span class="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">
-                                Sudah Tes
-                            </span>
+                            @if($user->results_count >= $totalModul && $totalModul > 0)
+                                <span class="bg-green-100 border border-green-200 text-green-700 text-[11px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wide">
+                                    Selesai
+                                </span>
+                            @else
+                                <span class="bg-gray-100 border border-gray-200 text-gray-500 text-[11px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wide">
+                                    Belum Selesai
+                                </span>
+                            @endif
                         </div>
 
-                        <div class="col-span-1 text-right">
-                            <button class="bg-blue-100 hover:bg-blue-200 text-blue-700 px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1 ml-auto">
-                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                        <div class="col-span-1 flex justify-end">
+                            <a href="{{ route('admin.kandidat.detail', $user->id) }}" class="inline-flex items-center gap-1.5 border border-blue-200 text-blue-600 bg-blue-50 hover:bg-blue-600 hover:text-white px-3 py-1.5 rounded-full text-xs font-bold transition">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
                                 Detail
-                            </button>
+                            </a>
                         </div>
                     </div>
-
-                    <div class="grid grid-cols-12 gap-4 px-6 py-4 items-center hover:bg-gray-50 transition">
-                        <div class="col-span-1">
-                            <span class="text-gray-300 text-sm font-medium ml-2">-</span>
-                        </div>
-
-                        <div class="col-span-4">
-                            <h4 class="font-bold text-gray-900">Naufal</h4>
-                            <p class="text-gray-500 text-sm">hungrystar07@gmail.com</p>
-                        </div>
-
-                        <div class="col-span-2">
-                            <span class="font-semibold text-gray-900">0</span> <span class="text-gray-500 text-sm">selesai</span>
-                        </div>
-
-                        <div class="col-span-2">
-                            <span class="text-gray-400 text-sm">-</span>
-                        </div>
-
-                        <div class="col-span-2">
-                            <span class="bg-gray-200 text-gray-500 text-xs font-semibold px-3 py-1 rounded-full">
-                                Belum Tes
-                            </span>
-                        </div>
-
-                        <div class="col-span-1 text-right">
-                            <button class="bg-blue-100 hover:bg-blue-200 text-blue-700 px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1 ml-auto">
-                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                                Detail
-                            </button>
-                        </div>
+                    @empty
+                    <div class="p-10 text-center text-gray-500">
+                        <p class="text-sm font-medium">Belum ada kandidat yang terdaftar.</p>
                     </div>
+                    @endforelse
 
                 </div>
             </div>
