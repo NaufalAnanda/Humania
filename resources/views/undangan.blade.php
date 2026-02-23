@@ -21,15 +21,16 @@
             <nav class="flex-1 px-4 space-y-2 mt-4">
                 <p class="px-4 text-xs font-semibold text-blue-200 uppercase tracking-wider mb-2">MENU</p>
 
-                <a href="dashboard" class="flex items-center gap-3 px-4 py-3 hover:bg-blue-600 rounded-lg text-white font-medium transition">
+                <a href="{{ route('dashboard') }}" class="flex items-center gap-3 px-4 py-3 hover:bg-blue-600 rounded-lg text-white font-medium transition">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
                     Dashboard
-                <a href="undangan" class="flex items-center gap-3 px-4 py-3 bg-blue-700 rounded-lg text-white font-medium transition">
+                </a>
+                <a href="{{ route('undangan') }}" class="flex items-center gap-3 px-4 py-3 bg-blue-700 rounded-lg text-white font-medium transition">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                     Undangan
                 </a>
 
-                <a href="hasil" class="flex items-center gap-3 px-4 py-3 text-blue-100 hover:bg-blue-600 hover:text-white rounded-lg font-medium transition">
+                <a href="{{ route('hasil') }}" class="flex items-center gap-3 px-4 py-3 text-blue-100 hover:bg-blue-600 hover:text-white rounded-lg font-medium transition">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg>
                     Hasil
                 </a>
@@ -45,10 +46,10 @@
                         <p class="text-xs text-blue-200 truncate w-32">naufal@gmail.com</p>
                     </div>
                 </div>
-                <button class="flex items-center gap-2 text-sm text-blue-200 hover:text-white transition w-full">
+                <a href="/" class="flex items-center gap-2 text-sm text-blue-200 hover:text-white transition w-full">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                     Keluar
-                </button>
+                </a>
             </div>
         </aside>
 
@@ -102,14 +103,14 @@
 
     <!-- TABEL -->
     <div class="overflow-x-auto">
-        <table class="w-full text-sm">
+        <table class="w-full text-sm table-fixed">
             <thead>
                 <tr class="border-b text-gray-500 text-left">
-                    <th class="py-3">Nama Test</th>
-                    <th>Kode</th>
-                    <th>Jadwal</th>
-                    <th>Status</th>
-                    <th>Keterangan</th>
+                    <th class="py-3 w-2/5">Nama Test</th>
+                    <th class="w-1/6">Kode</th>
+                    <th class="w-1/4">Jadwal</th>
+                    <th class="w-1/6">Status</th>
+                    <th class="w-1/6">Keterangan</th>
                 </tr>
             </thead>
 
@@ -120,15 +121,19 @@
                     <td class="text-gray-500">GRQ0HG</td>
                     <td class="text-gray-500 text-xs">19/01/26 11:00 - 11:20</td>
                     <td>
-                        <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs">
-                            Belum dikerjakan
-                        </span>
+                        <div class="flex items-center h-8">
+                            <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs min-w-[90px] text-center">
+                                Belum dikerjakan
+                            </span>
+                        </div>
                     </td>
                     <td>
-                        <button class="bg-blue-600 text-white px-4 py-2 rounded-full text-xs">
+                    <div class="flex items-center h-8">
+                        <button class="bg-blue-600 text-white px-4 py-2 rounded-full text-xs min-w-[90px] text-center">
                             Mulai Test
                         </button>
-                    </td>
+                    </div>
+                </td>
                 </tr>
 
                 <tr data-status="running">
