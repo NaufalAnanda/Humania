@@ -38,12 +38,6 @@
                 <a href="{{ url('/admin/buat-assesment') }}" class="flex items-center gap-3 px-4 py-3 text-blue-100 hover:bg-blue-600 hover:text-white rounded-lg font-medium transition">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg> Buat Assesment
                 </a>
-            </nav>
-
-            <div class="p-4 bg-blue-800 mt-auto">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-10 h-10 rounded-full bg-white text-blue-800 flex items-center justify-center font-bold border-2 border-blue-200">
-                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                     </div>
                     <div class="overflow-hidden">
                         <p class="font-bold text-sm text-white truncate">{{ Auth::user()->name }}</p>
