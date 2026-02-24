@@ -19,30 +19,30 @@
 
     <header id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300">
         <div class="w-full px-10 py-4 flex justify-between items-center">
-            <h1 class="text-xl font-bold">
+            <h1 class="text-xl font-bold ml-8">
                 <span class="text-blue-600">Humania</span>TalentMap
             </h1>
             <div class="flex items-center gap-4">
                 <a href="{{ route('login') }}" class="text-gray-600 hover:text-blue-600 transition">Sign In</a>
                 <a href="{{ route('register') }}" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition">
-                    Get Started →
+                    Sign Up
                 </a>
             </div>
         </div>
     </header>
 
-    <section class="min-h-screen max-w-7xl mx-auto px-6 pt-32 pb-20 grid md:grid-cols-2 gap-12 items-center relative overflow-hidden">
+    <section class="min-h-screen max-w-8xl mx-auto px-6 pt-32 pb-20 grid md:grid-cols-2 gap-12 items-center relative overflow-hidden">
         <div class="absolute -top-32 -left-32 w-96 h-96 bg-blue-400 opacity-20 rounded-full blur-3xl -z-10"></div>
         <div class="absolute bottom-0 right-0 w-96 h-96 bg-indigo-400 opacity-20 rounded-full blur-3xl -z-10"></div>
 
         <div class="z-10">
-            <h2 class="text-4xl md:text-5xl font-bold leading-tight mb-10">
+            <h2 class="text-4xl md:text-5xl font-bold leading-tight mb-10 ml-9">
                 Platform Pemetaan Talenta untuk
                 <span class="text-blue-600">Rekrutmen</span> &
                 <span class="text-blue-600">Pengembangan Tim</span>
 
             </h2>
-            <a href="{{ route('dashboard') }}" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition transform hover:scale-105">
+            <a href="{{ route('dashboard') }}" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition transform hover:scale-105 ml-9">
                         Mulai Sekarang →
                     </a>
         </div>
