@@ -52,7 +52,7 @@
         </div>
     </section>
 
-    <section class="py-28 bg-blue-600 text-white mt-20">
+    <section class="py-28 bg-blue-600 text-white">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
                 <h2 class="text-4xl font-bold mb-4">Assessment Services by Humania</h2>

@@ -171,7 +171,7 @@
                                 <div class="mb-6">
                                     <input type="text" name="token" required autocomplete="off"
                                         class="w-full border-2 border-gray-200 focus:border-blue-500 rounded-xl p-4 text-center text-2xl font-mono uppercase tracking-[0.4em] text-gray-800 outline-none transition placeholder:text-gray-300 placeholder:tracking-normal"
-                                        placeholder="X7K9P2" maxlength="6">
+                                        placeholder="_ _ _ _ _ _" maxlength="6">
                                 </div>
 
                                 <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl transition shadow-lg shadow-blue-200 flex items-center justify-center gap-2">

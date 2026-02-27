@@ -326,15 +326,27 @@ if (empty($result->ai_analysis) || !is_array(json_decode($result->ai_analysis, t
         return view('admin.review_assesment', compact('kandidat', 'assessment', 'result', 'userAnswers', 'aiError'));
     }
 
-    // FUNGSI MENGIRIM EMAIL UNDANGAN
+    
+    // FUNGSI MENGIRIM EMAIL UNDANGAN & MENYIMPAN KE DATABASE
     public function kirimUndangan($user_id, $assessment_id)
     {
         $kandidat = User::findOrFail($user_id);
         $assessment = \App\Models\Assessment::findOrFail($assessment_id);
 
-        // Kirim Email menggunakan Mailable yang sudah kita buat
-        Mail::to($kandidat->email)->send(new AssessmentInvitation($kandidat, $assessment));
+        // 1. Simpan ke database terlebih dahulu (Wajib ditaruh di atas return)
+        \App\Models\Invitation::updateOrCreate(
+            ['user_id' => $user_id, 'assessment_id' => $assessment_id],
+            ['status' => 'Belum dikerjakan']
+        );
 
-        return back()->with('success', 'Undangan ujian berhasil dikirim ke email ' . $kandidat->email);
+        // 2. Kirim Email (Jika ini error, data minimal sudah tersimpan di database)
+        try {
+            Mail::to($kandidat->email)->send(new AssessmentInvitation($kandidat, $assessment));
+            return redirect()->back()->with('success', 'Undangan berhasil masuk ke Dashboard Kandidat & Email terkirim!');
+        } catch (\Exception $e) {
+            // Jika email gagal terkirim (misal karena .env belum disetting),
+            // setidaknya data undangan tetap masuk ke Dashboard Kandidat.
+            return redirect()->back()->with('warning', 'Undangan berhasil masuk ke Dashboard, namun pengiriman Email gagal: ' . $e->getMessage());
+        }
     }
 }

@@ -36,7 +36,7 @@ class AssessmentInvitation extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'admin.invitation',
+            view: 'invitation',
         );
     }
 }
