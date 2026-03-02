@@ -117,20 +117,14 @@
                         </div>
 
                         <div class="col-span-2">
-                            <span class="font-bold text-gray-900 text-sm">{{ $user->results_count }}</span>
+                            <span class="font-bold text-gray-900 text-sm">{{ $user->undangan_selesai }}/{{ $user->total_undangan }}</span>
                             <span class="text-sm text-gray-500">selesai</span>
                         </div>
 
                         <div class="col-span-2">
-                            @if($user->results_count >= $totalModul && $totalModul > 0)
-                                <span class="bg-green-100 border border-green-200 text-green-700 text-[11px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wide">
-                                    Selesai
-                                </span>
-                            @else
-                                <span class="bg-gray-100 border border-gray-200 text-gray-500 text-[11px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wide">
-                                    Belum Selesai
-                                </span>
-                            @endif
+                            <span class="{{ $user->badge_color }} text-[11px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wide">
+                                {{ $user->status_ujian }}
+                            </span>
                         </div>
 
                         <div class="col-span-1 flex justify-end">

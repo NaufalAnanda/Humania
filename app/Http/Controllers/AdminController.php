@@ -56,11 +56,38 @@ class AdminController extends Controller
     {
         $totalModul = \App\Models\Assessment::count();
 
-        // Ambil semua kandidat beserta hitungan berapa ujian yang sudah mereka selesaikan
+        // 1. Ambil kandidat beserta hitungan total undangan dan undangan yang berstatus 'Selesai'
         $kandidat = User::where('role', 'kandidat')
-                        ->withCount('results') // Ini akan menghasilkan properti $user->results_count
+                        ->withCount([
+                            'invitations as total_undangan',
+                            'invitations as undangan_selesai' => function($query) {
+                                $query->where('status', 'Selesai');
+                            }
+                        ])
                         ->latest()
                         ->get();
+
+        // 2. Logika Cerdas: Tentukan status akhir kandidat
+        foreach ($kandidat as $user) {
+            // Jika belum pernah diundang sama sekali
+            if ($user->total_undangan == 0) {
+                $user->status_ujian = 'Belum Ada Undangan';
+                $user->badge_color  = 'bg-gray-100 text-gray-600 border-gray-200';
+            }
+            // Jika jumlah undangan yang selesai SAMA DENGAN total undangan
+            elseif ($user->total_undangan == $user->undangan_selesai) {
+                $user->status_ujian = 'Selesai';
+                $user->badge_color  = 'bg-green-100 text-green-700 border-green-200';
+            }
+            // Jika baru mengerjakan sebagian (atau belum sama sekali tapi sudah diundang)
+            else {
+                $user->status_ujian = 'Belum Selesai';
+                $user->badge_color  = 'bg-yellow-100 text-yellow-700 border-yellow-200';
+            }
+
+            // Format teks progress (Contoh output: "2/3 Tes")
+            $user->progress_text = $user->undangan_selesai . '/' . $user->total_undangan . ' Tes';
+        }
 
         return view('admin.daftar_kandidat', compact('kandidat', 'totalModul'));
     }
@@ -211,32 +238,40 @@ class AdminController extends Controller
         return view('admin.buat_pertanyaan', compact('assessment', 'questions'));
     }
 
-    // Menyimpan Pertanyaan Baru ke dalam Assessment
     public function storeQuestion(Request $request, $id)
     {
         $type = $request->type;
+        $assessment = \App\Models\Assessment::findOrFail($id);
 
+        // Aturan dasar validasi
         $rules = [
             'question_text' => 'required',
             'type'          => 'required',
-            'points'        => 'required|numeric',
         ];
 
-        if ($type == 'multiple_choice') {
-            $rules['option_a'] = 'required';
-            $rules['option_b'] = 'required';
-            $rules['option_c'] = 'required';
-            $rules['option_d'] = 'required';
-            $rules['correct_answer'] = 'required';
+        // 1. Jika tes Kognitif, Poin wajib diisi
+        if ($assessment->category === 'Cognitive') {
+            $rules['points'] = 'required|numeric';
+
+            // Aturan untuk Kognitif (Pilihan Ganda)
+            if ($type == 'multiple_choice') {
+                $rules['option_a'] = 'required';
+                $rules['option_b'] = 'required';
+                $rules['option_c'] = 'required';
+                $rules['option_d'] = 'required';
+                $rules['correct_answer'] = 'required';
+            }
         }
 
         $request->validate($rules);
 
-        Question::create([
+        // 2. Simpan ke database
+        \App\Models\Question::create([
             'assessment_id' => $id,
             'question_text' => $request->question_text,
             'type'          => $request->type,
-            'points'        => $request->points,
+            // Jika Poin kosong (karena disembunyikan), otomatis set ke 0
+            'points'        => $request->points ?? 0,
             'option_a'      => $request->option_a,
             'option_b'      => $request->option_b,
             'option_c'      => $request->option_c,
@@ -326,7 +361,7 @@ if (empty($result->ai_analysis) || !is_array(json_decode($result->ai_analysis, t
         return view('admin.review_assesment', compact('kandidat', 'assessment', 'result', 'userAnswers', 'aiError'));
     }
 
-    
+
     // FUNGSI MENGIRIM EMAIL UNDANGAN & MENYIMPAN KE DATABASE
     public function kirimUndangan($user_id, $assessment_id)
     {
@@ -349,4 +384,29 @@ if (empty($result->ai_analysis) || !is_array(json_decode($result->ai_analysis, t
             return redirect()->back()->with('warning', 'Undangan berhasil masuk ke Dashboard, namun pengiriman Email gagal: ' . $e->getMessage());
         }
     }
+
+    // ==========================================
+    // FUNGSI RESET UJIAN (KESEMPATAN KEDUA)
+    // ==========================================
+    public function resetUjian($user_id, $assessment_id)
+    {
+        // 1. Hapus nilai akhir (Result)
+        \App\Models\Result::where('user_id', $user_id)
+            ->where('assessment_id', $assessment_id)
+            ->delete();
+
+        // 2. Hapus seluruh riwayat jawaban (UserAnswers)
+        \App\Models\UserAnswer::where('user_id', $user_id)
+            ->where('assessment_id', $assessment_id)
+            ->delete();
+
+        // 3. Kembalikan status undangan menjadi "Belum dikerjakan"
+        \App\Models\Invitation::where('user_id', $user_id)
+            ->where('assessment_id', $assessment_id)
+            ->update(['status' => 'Belum dikerjakan']);
+
+        return redirect()->back()->with('success', 'Ujian berhasil di-reset! Kandidat sekarang dapat mengakses dan mengerjakan ulang tes tersebut dari Dashboard-nya.');
+    }
+
+
 }

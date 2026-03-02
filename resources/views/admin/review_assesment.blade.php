@@ -67,8 +67,13 @@
                 </a>
                 <div>
                     <h1 class="text-2xl font-bold text-gray-900">{{ $assessment->title }}</h1>
-                    <p class="text-gray-500 text-sm mt-0.5">Kandidat: <span class="font-bold text-blue-600">{{ $kandidat->name }}</span> • Skor: {{ $result->score }}</p>
-                </div>
+                    <p class="text-gray-500 text-sm mt-0.5">Kandidat: <span class="font-bold text-blue-600">{{ $kandidat->name }}</span>
+                        @if($assessment->category === 'Cognitive')
+                            • Skor: <span class="font-bold text-green-600">{{ $result->score }}</span>
+                        @else
+                            • 
+                        @endif
+                                </div>
             </div>
 
             <div class="bg-white rounded-3xl shadow-sm border border-gray-200 p-8 flex-1 overflow-y-auto custom-scrollbar relative">
@@ -146,7 +151,7 @@
                     @if(!$answeredValue)
                         <div class="bg-yellow-50 border border-yellow-200 p-4 rounded-xl mb-6 flex gap-3">
                             <svg class="w-5 h-5 text-yellow-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <p class="text-sm text-yellow-800 font-medium">Kandidat tidak menjawab soal ini / Data tidak ditemukan.</p>
+                            <p class="text-sm text-yellow-800 font-medium">Kandidat tidak menjawab soal ini.</p>
                         </div>
                     @endif
 

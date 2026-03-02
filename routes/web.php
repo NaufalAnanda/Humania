@@ -66,6 +66,10 @@ Route::middleware(['auth'])->group(function () { // Anda bisa menambahkan middle
     // Kirim Undangan Assessment ke Kandidat
     Route::post('/admin/kirim-undangan/{user_id}/{assessment_id}', [AdminController::class, 'kirimUndangan'])->name('admin.kirim.undangan');
 
+    // Rute untuk memberikan izin ulang / reset ujian kandidat
+Route::post('/admin/kandidat/{user_id}/assessment/{assessment_id}/reset', [App\Http\Controllers\AdminController::class, 'resetUjian'])
+    ->name('admin.kandidat.reset_ujian');
+
 });
 
 

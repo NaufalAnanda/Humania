@@ -94,9 +94,12 @@
                                             <span class="bg-purple-100 text-purple-700 text-[10px] font-bold px-2 py-1 rounded uppercase">Skala </span>
                                         @endif
                                     </div>
-                                    <span class="text-xs font-bold text-gray-500 bg-gray-100 px-2 py-1 rounded">
-                                        {{ $q->points }} Poin
-                                    </span>
+
+                                    @if($assessment->category === 'Cognitive')
+                                        <span class="text-xs font-bold text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                                            {{ $q->points }} Poin
+                                        </span>
+                                    @endif
                                 </div>
 
                                 <p class="font-bold text-gray-800 mb-4 text-base">{{ $q->question_text }}</p>
@@ -144,20 +147,6 @@
                             </div>
                         @endforelse
                     </div>
-
-                    <div class="mt-8 pt-6 border-t border-gray-200 flex justify-between items-center bg-white p-6 rounded-xl shadow-sm border">
-                        <div class="flex-1">
-                            <h4 class="font-bold text-gray-800">Selesai Membuat Soal?</h4>
-                            <p class="text-sm text-gray-500 mt-1">
-                                Pertanyaan tersimpan otomatis. Tekan tombol ini untuk kembali ke dashboard.
-                            </p>
-                        </div>
-                        <a href="{{ route('admin.dashboard') }}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg shadow-green-100 flex items-center gap-2 transition transform hover:-translate-y-1">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            Selesai
-                        </a>
-                    </div>
-
                 </div>
 
                 <div class="lg:col-span-1">
@@ -182,8 +171,15 @@
                                     <input type="text" value="{{ $typeLabel }}" disabled class="w-full bg-gray-200 border-none rounded-lg p-3 text-sm font-bold text-gray-600 cursor-not-allowed">
                                 </div>
                                 <div>
-                                    <label class="text-xs font-bold text-gray-400 uppercase tracking-wide mb-2 block">Poin</label>
-                                    <input type="number" name="points" value="5" required class="w-full bg-gray-100 border-none rounded-lg p-3 text-sm">
+                                    @if($assessment->category === 'Cognitive')
+                                    <div class="mb-4">
+                                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Poin</label>
+                                        <input type="number" name="points" value="5" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-blue-500 transition" required>
+                                        <p class="text-[10px] text-gray-400 mt-1">Bobot nilai jika kandidat menjawab benar.</p>
+                                    </div>
+                                @else
+                                    <input type="hidden" name="points" value="0">
+                                @endif
                                 </div>
                             </div>
 
@@ -231,6 +227,11 @@
                             <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition shadow-lg shadow-blue-200">
                                 + Simpan Pertanyaan
                             </button>
+                            <br></br>
+                            <a href="{{ route('admin.dashboard') }}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg shadow-green-100 flex items-center gap-2 transition transform hover:-translate-y-1">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                Selesai membuat soal
+                            </a>
                         </form>
                     </div>
                 </div>

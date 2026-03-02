@@ -118,7 +118,14 @@
                             <td class="px-8 py-5">
                                 <div class="flex items-center justify-end gap-2">
                                     @if($data->status === 'Selesai')
-                                        <a href="{{ route('admin.kandidat.review', ['user_id' => $kandidat->id, 'assessment_id' => $data->id]) }}" class="inline-flex items-center gap-1.5 border border-blue-200 text-blue-600 bg-blue-50 hover:bg-blue-600 hover:text-white px-4 py-1.5 rounded-full text-xs font-bold transition">
+                                        <form action="{{ route('admin.kandidat.reset_ujian', ['user_id' => $kandidat->id, 'assessment_id' => $data->id]) }}" method="POST" class="inline-block" onsubmit="return confirm('PERINGATAN! Anda yakin ingin mereset ujian ini?\n\nSemua nilai dan riwayat jawaban kandidat pada modul ini akan DIHAPUS PERMANEN, dan kandidat harus mengerjakannya dari awal.');">
+                                            @csrf
+                                            <button type="submit" class="inline-flex items-center gap-1.5 border border-red-200 text-red-600 bg-red-50 hover:bg-red-600 hover:text-white px-4 py-1.5 rounded-full text-xs font-bold transition shadow-sm" title="Reset Ujian & Beri Izin Mengulang">
+                                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                                                Reset
+                                            </button>
+                                        </form>
+                                    <a href="{{ route('admin.kandidat.review', ['user_id' => $kandidat->id, 'assessment_id' => $data->id]) }}" class="inline-flex items-center gap-1.5 border border-blue-200 text-blue-600 bg-blue-50 hover:bg-blue-600 hover:text-white px-4 py-1.5 rounded-full text-xs font-bold transition shadow-sm">
                                             Detail
                                         </a>
                                     @else

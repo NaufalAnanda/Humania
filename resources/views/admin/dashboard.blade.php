@@ -169,9 +169,16 @@
                                     </td>
                                     <td class="px-6 py-4 text-right">
                                         <div class="flex flex-col items-end gap-1">
-                                            <span class="bg-green-100 text-green-700 font-bold px-2 py-0.5 rounded text-[10px] border border-green-200">
-                                                Skor: {{ $result->score }}
-                                            </span>
+
+                                            @if(isset($result->assessment) && $result->assessment->category === 'Cognitive')
+                                                <span class="bg-green-100 text-green-700 font-bold px-2 py-0.5 rounded text-[10px] border border-green-200">
+                                                    Skor: {{ $result->score }}
+                                                </span>
+                                            @else
+                                                <span class="bg-purple-100 text-purple-700 font-bold px-2 py-0.5 rounded text-[10px] border border-purple-200">
+                                                    Skala Likert
+                                                </span>
+                                            @endif
                                             <span class="text-[9px] text-gray-400 font-medium">{{ $result->created_at->diffForHumans() }}</span>
                                         </div>
                                     </td>
@@ -185,9 +192,8 @@
                         </table>
                     </div>
                 </div>
-
             </div>
-
+            
             <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
                 <div class="bg-gray-100 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
                     <h3 class="font-bold text-gray-800">Modul Assesment Aktif</h3>

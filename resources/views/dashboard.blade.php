@@ -131,10 +131,17 @@
                         {{ $test->description }}
                     </p>
 
+                    @if(in_array($test->id, $ujianSelesai))
+                    <button disabled class="w-full bg-gray-200 text-gray-500 font-bold py-3 rounded-lg text-center cursor-not-allowed flex items-center justify-center gap-2 mt-auto">
+                        Sudah Dikerjakan
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </button>
+                @else
                     <button onclick="openModal('modal-{{ $test->id }}')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg text-center transition shadow-lg shadow-blue-100 flex items-center justify-center gap-2 mt-auto">
                         Mulai Tes
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </button>
+                @endif
                 </div>
 
                 <div id="modal-{{ $test->id }}" class="hidden fixed inset-0 z-[100] bg-gray-900/70 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity">

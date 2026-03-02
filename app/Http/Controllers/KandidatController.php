@@ -16,7 +16,13 @@ class KandidatController extends Controller
         $user = Auth::user();
         $assessments = Assessment::withCount('questions')->latest()->get();
 
-        return view('dashboard', compact('user', 'assessments'));
+        
+        $ujianSelesai = \App\Models\Result::where('user_id', $user->id)
+                            ->pluck('assessment_id')
+                            ->toArray();
+
+        // Jangan lupa tambahkan 'ujianSelesai' ke dalam compact()
+        return view('dashboard', compact('user', 'assessments', 'ujianSelesai'));
     }
 
     public function undangan()
