@@ -16,7 +16,7 @@ class KandidatController extends Controller
         $user = Auth::user();
         $assessments = Assessment::withCount('questions')->latest()->get();
 
-        
+
         $ujianSelesai = \App\Models\Result::where('user_id', $user->id)
                             ->pluck('assessment_id')
                             ->toArray();
@@ -121,6 +121,7 @@ class KandidatController extends Controller
                 'score' => $totalScore,
                 'result_label' => $assessment->category === 'Cognitive' ? null : 'Menunggu Analisis',
                 'cheat_count' => $request->input('cheat_count', 0),
+                'cheat_details' => $request->input('cheat_details'),
                 'status' => 'Selesai'
             ]
         );

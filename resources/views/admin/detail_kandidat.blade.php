@@ -72,16 +72,6 @@
             </div>
         </div>
 
-        @if($totalCheats > 0)
-        <div class="mb-8 border border-red-300 rounded-xl p-6 bg-red-50/50 shadow-sm flex items-start gap-4">
-            <svg class="w-6 h-6 text-red-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-            <div>
-                <p class="text-red-700 text-sm">Kandidat terdeteksi melakukan alt tab sebanyak <b class="font-bold">{{ $totalCheats }} kali</b> pada saat pengerjaan soal.</p>
-                <p class="text-red-700 text-sm mt-1">Sistem mendeteksi kandidat keluar dari halaman ujian pada saat pengerjaan soal.</p>
-            </div>
-        </div>
-        @endif
-
         <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
 
             <div class="px-8 py-6 border-b border-gray-100 bg-gray-50/30">
@@ -97,47 +87,91 @@
                             <th class="px-8 py-4 font-semibold">Assesment</th>
                             <th class="px-8 py-4 font-semibold">Kode Tes</th>
                             <th class="px-8 py-4 font-semibold text-center">Soal</th>
-                            <th class="px-8 py-4 font-semibold">Status</th>
-                            <th class="px-8 py-4 font-semibold text-right">Aksi</th>
+                            <th class="px-8 py-4 font-semibold w-1/3">Status & Keamanan</th> <th class="px-8 py-4 font-semibold text-right">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">
                         @forelse($assesmentData as $data)
-                        <tr class="hover:bg-gray-50/50 transition">
-                            <td class="px-8 py-5 font-bold text-gray-500 text-sm">{{ $data->module_id }}</td>
+                        <tr class="hover:bg-gray-50/50 transition align-top"> <td class="px-8 py-5 font-bold text-gray-500 text-sm">{{ $data->module_id }}</td>
                             <td class="px-8 py-5 font-bold text-gray-700">Tes {{ $data->category }}</td>
                             <td class="px-8 py-5 font-bold text-gray-500 tracking-wider">{{ $data->test_code }}</td>
                             <td class="px-8 py-5 font-bold text-gray-900 text-center">{{ $data->questions_count }}</td>
+
                             <td class="px-8 py-5">
-                                @if($data->status === 'Selesai')
-                                    <span class="bg-[#10B981] text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">Selesai</span>
-                                @else
-                                    <span class="bg-gray-200 text-gray-500 text-xs font-bold px-3 py-1.5 rounded-full">Belum Selesai</span>
-                                @endif
+                                <div class="flex flex-col gap-3">
+                                    <div>
+                                        @if($data->status === 'Selesai')
+                                            <span class="bg-[#10B981] text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">Selesai</span>
+                                        @else
+                                            <span class="bg-gray-200 text-gray-500 text-xs font-bold px-3 py-1.5 rounded-full">Belum Selesai</span>
+                                        @endif
+                                    </div>
+
+                                    @if($data->cheat_count > 0)
+                                    <div class="p-3 bg-red-50 border border-red-200 rounded-lg w-full">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                            <span class="text-[10px] font-bold text-red-800 uppercase">Log Pelanggaran ({{ $data->cheat_count }})</span>
+                                        </div>
+
+                                        <ul class="space-y-1 max-h-40 overflow-y-auto custom-scrollbar pr-1">
+                                            @if(!empty($data->cheat_details))
+                                                {{-- Cek apakah perlu json_decode atau tidak (tergantung Model casts) --}}
+                                                @php
+                                                    $logs = is_string($data->cheat_details) ? json_decode($data->cheat_details) : $data->cheat_details;
+                                                @endphp
+
+                                                @foreach($logs as $log)
+                                                    <li class="text-[10px] text-gray-700 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 border-b border-red-100 pb-1 last:border-0">
+                                                        {{-- Akses sebagai object ($log->time) atau array ($log['time']) --}}
+                                                        <span class="font-mono bg-white px-1 rounded border border-gray-200 text-gray-500 whitespace-nowrap">
+                                                            {{ is_object($log) ? ($log->time ?? '-') : ($log['time'] ?? '-') }}
+                                                        </span>
+                                                        <span class="font-medium leading-tight">
+                                                            @php $reason = is_object($log) ? $log->reason : $log['reason']; @endphp
+
+                                                            @if(\Illuminate\Support\Str::contains($reason, ['HP', 'Kamera']))
+                                                                <span class="text-red-600 font-bold">Terdeteksi HP/Kamera</span>
+                                                            @elseif(\Illuminate\Support\Str::contains($reason, ['Joki', 'Wajah']))
+                                                                <span class="text-purple-600 font-bold">Indikasi Joki</span>
+                                                            @elseif(\Illuminate\Support\Str::contains($reason, ['Tab', 'Alt']))
+                                                                <span class="text-orange-600 font-bold">Pindah Tab</span>
+                                                            @else
+                                                                {{ $reason }}
+                                                            @endif
+                                                        </span>
+                                                    </li>
+                                                @endforeach
+                                            @else
+                                                <li class="text-[10px] text-gray-400 italic">Detail log tidak tersedia.</li>
+                                            @endif
+                                        </ul>
+                                    </div>
+                                    @endif
+                                </div>
                             </td>
+
                             <td class="px-8 py-5">
                                 <div class="flex items-center justify-end gap-2">
                                     @if($data->status === 'Selesai')
-                                        <form action="{{ route('admin.kandidat.reset_ujian', ['user_id' => $kandidat->id, 'assessment_id' => $data->id]) }}" method="POST" class="inline-block" onsubmit="return confirm('PERINGATAN! Anda yakin ingin mereset ujian ini?\n\nSemua nilai dan riwayat jawaban kandidat pada modul ini akan DIHAPUS PERMANEN, dan kandidat harus mengerjakannya dari awal.');">
+                                        <form action="{{ route('admin.kandidat.reset_ujian', ['user_id' => $kandidat->id, 'assessment_id' => $data->id]) }}" method="POST" class="inline-block" onsubmit="return confirm('PERINGATAN! Anda yakin ingin mereset ujian ini?');">
                                             @csrf
-                                            <button type="submit" class="inline-flex items-center gap-1.5 border border-red-200 text-red-600 bg-red-50 hover:bg-red-600 hover:text-white px-4 py-1.5 rounded-full text-xs font-bold transition shadow-sm" title="Reset Ujian & Beri Izin Mengulang">
+                                            <button type="submit" class="inline-flex items-center gap-1.5 border border-red-200 text-red-600 bg-red-50 hover:bg-red-600 hover:text-white px-3 py-1.5 rounded-full text-xs font-bold transition shadow-sm" title="Reset Ujian">
                                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
                                                 Reset
                                             </button>
                                         </form>
-                                    <a href="{{ route('admin.kandidat.review', ['user_id' => $kandidat->id, 'assessment_id' => $data->id]) }}" class="inline-flex items-center gap-1.5 border border-blue-200 text-blue-600 bg-blue-50 hover:bg-blue-600 hover:text-white px-4 py-1.5 rounded-full text-xs font-bold transition shadow-sm">
+
+                                        <a href="{{ route('admin.kandidat.review', ['user_id' => $kandidat->id, 'assessment_id' => $data->id]) }}" class="inline-flex items-center gap-1.5 border border-blue-200 text-blue-600 bg-blue-50 hover:bg-blue-600 hover:text-white px-4 py-1.5 rounded-full text-xs font-bold transition shadow-sm">
                                             Detail
                                         </a>
                                     @else
                                         <button disabled class="inline-flex items-center gap-1.5 border border-gray-200 text-gray-400 bg-gray-50 px-4 py-1.5 rounded-full text-xs font-bold cursor-not-allowed">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
                                             Detail
                                         </button>
-
                                         <form action="{{ route('admin.kirim.undangan', ['user_id' => $kandidat->id, 'assessment_id' => $data->id]) }}" method="POST" class="inline-block">
                                             @csrf
-                                            <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition shadow-sm" title="Kirim Undangan via Email">
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                            <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition shadow-sm">
                                                 Undang
                                             </button>
                                         </form>

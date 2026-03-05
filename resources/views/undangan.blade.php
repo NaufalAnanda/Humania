@@ -167,7 +167,7 @@
 
                 <div class="text-center mb-8">
                     <p class="text-sm text-gray-500 mb-4">Masukkan <strong class="text-gray-700">Token Akses (6 Karakter)</strong> yang diberikan oleh Admin untuk membuka soal.</p>
-                    <input type="text" name="token" required maxlength="6" class="w-full border-2 border-gray-200 rounded-2xl px-4 py-4 text-center text-2xl font-mono tracking-widest text-gray-800 focus:outline-none focus:border-[#2563EB] transition uppercase placeholder-gray-300" placeholder="X7K9P2">
+                    <input type="text" name="token" required maxlength="6" class="w-full border-2 border-gray-200 rounded-2xl px-4 py-4 text-center text-2xl font-mono tracking-widest text-gray-800 focus:outline-none focus:border-[#2563EB] transition uppercase placeholder-gray-300" placeholder="______">
                 </div>
 
                 <button type="submit" class="w-full bg-[#2563EB] hover:bg-blue-700 text-white font-bold py-4 rounded-2xl transition flex items-center justify-center gap-2 shadow-lg shadow-blue-500/30">

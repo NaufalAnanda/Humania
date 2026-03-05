@@ -94,7 +94,7 @@ class AdminController extends Controller
 
     public function detailKandidat($id)
     {
-        $kandidat = User::findOrFail($id);
+        $kandidat = \App\Models\User::findOrFail($id);
 
         // Ambil semua hasil tes dari kandidat ini
         $results = \App\Models\Result::where('user_id', $id)->get();
@@ -105,9 +105,10 @@ class AdminController extends Controller
         // Ambil SEMUA modul assessment yang ada di sistem
         $allAssessments = \App\Models\Assessment::withCount('questions')->get();
 
-        // Gabungkan data modul dengan hasil tes kandidat (apakah Selesai / Belum Selesai)
+        // Gabungkan data modul dengan hasil tes kandidat
         $assesmentData = $allAssessments->map(function($assessment) use ($results) {
             $result = $results->where('assessment_id', $assessment->id)->first();
+
             return (object) [
                 'id'              => $assessment->id,
                 'module_id'       => $assessment->module_id,
@@ -115,8 +116,15 @@ class AdminController extends Controller
                 'test_code'       => $assessment->test_code,
                 'category'        => $assessment->category,
                 'questions_count' => $assessment->questions_count,
+
+                // Data Status & Score
                 'status'          => $result ? $result->status : 'Belum Selesai',
                 'cheat_count'     => $result ? $result->cheat_count : 0,
+
+                // --- BAGIAN INI YANG KEMARIN HILANG ---
+                // Kita kirimkan data JSON log kecurangan ke View
+                'cheat_details'   => $result ? $result->cheat_details : null,
+                // --------------------------------------
             ];
         });
 

@@ -12,6 +12,8 @@
         .slide-active { display: block; animation: fadeIn 0.3s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
 </head>
 <body class="text-gray-800 h-screen flex flex-col overflow-hidden relative">
 
@@ -48,6 +50,7 @@
         @csrf
 
         <input type="hidden" name="cheat_count" id="cheatCount" value="0">
+        <input type="hidden" name="cheat_details" id="cheatDetails" value="[]">
 
         <main class="flex-1 flex px-8 py-8 gap-8 overflow-y-auto">
 
@@ -235,33 +238,46 @@
 
         updateUI();
 
-
         // ==============================================
-        // 2. SISTEM ANTI-CHEAT YANG DIPERBAIKI
-        // ==============================================
-        // ==============================================
-        // 2. SISTEM ANTI-CHEAT YANG DIPERBAIKI
+        // 2. SISTEM ANTI-CHEAT (LOGIKA DASAR)
         // ==============================================
         let cheatCount = 0;
         const cheatInput = document.getElementById('cheatCount');
         let isExamFinished = false;
-
-        let isAway = false; // <-- VARIABEL BARU: Kunci pelacak status
+        let isAway = false;
 
         const cheatToast = document.getElementById('cheatToast');
         const cheatToastText = document.getElementById('cheatToastText');
         let toastTimeout;
 
+        // Variabel array untuk menampung daftar dosa kandidat
+    let cheatLogs = [];
+    const cheatDetailsInput = document.getElementById('cheatDetails');
+
         function recordCheat(reason) {
-            // Jika ujian selesai, ATAU kandidat sudah tercatat "keluar layar" (isAway = true), jangan hitung lagi
             if (isExamFinished || isAway) return;
 
-            isAway = true; // Kunci aktif: tandai kandidat sedang di luar layar
+            // Jangan kunci layar jika deteksi dari kamera (biar AI jalan terus)
+            if (!reason.includes("Kamera") && !reason.includes("Wajah")) {
+                isAway = true;
+            }
+
             cheatCount++;
-            cheatInput.value = cheatCount;
+            cheatInput.value = cheatCount; // Update angka total
 
-            cheatToastText.innerHTML = `Terdeteksi <b>${reason}</b>.<br>Pelanggaran ke-${cheatCount} dicatat oleh sistem.`;
+            // --- TAMBAHAN BARU: CATAT ALASAN & WAKTU ---
+            let timeStamp = new Date().toLocaleTimeString();
+            cheatLogs.push({
+                reason: reason,
+                time: timeStamp
+            });
+            // Ubah array jadi teks JSON dan masukkan ke input hidden
+            cheatDetailsInput.value = JSON.stringify(cheatLogs);
+            // -------------------------------------------
 
+            console.warn("KECURANGAN: " + reason);
+
+            cheatToastText.innerHTML = `Terdeteksi <b>${reason}</b>.<br>Pelanggaran ke-${cheatCount} dicatat sistem.`;
             cheatToast.classList.remove('opacity-0', '-translate-y-10', 'pointer-events-none');
             cheatToast.classList.add('opacity-100', 'translate-y-0');
 
@@ -272,33 +288,85 @@
             }, 4000);
         }
 
-        // BUKA KUNCI KETIKA KANDIDAT KEMBALI FOKUS KE HALAMAN UJIAN
-        window.addEventListener('focus', () => {
-            isAway = false;
-        });
+        window.addEventListener('focus', () => { isAway = false; });
 
-        // Sensor 1: Ganti Tab Browser
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
                 recordCheat("Berpindah Tab Browser");
             } else {
-                isAway = false; // Buka kunci saat tab kembali dibuka
+                isAway = false;
             }
         });
 
-        // Sensor 2: Buka Aplikasi Lain (Alt+Tab) / Minimalkan Browser
         window.addEventListener('blur', () => {
             recordCheat("Membuka Layar/Aplikasi Lain (Alt+Tab)");
         });
 
         // ==============================================
-        // 3. LOGIKA WEBCAM
+        // 3. LOGIKA WEBCAM & AI DETEKSI (DIGABUNG)
         // ==============================================
         const video = document.getElementById('webcamVideo');
         const camStatus = document.getElementById('camStatus');
         const webcamFallback = document.getElementById('webcamFallback');
         const btnStartCam = document.getElementById('btnStartCam');
 
+        let model = undefined; // Variabel Model AI
+
+        // Fungsi Load AI
+        async function loadAIModel() {
+            if (typeof cocoSsd === 'undefined') {
+                console.error("TensorFlow/COCO-SSD Gagal Dimuat. Cek Koneksi Internet.");
+                camStatus.innerText = "Gagal memuat AI (Cek Internet)";
+                return;
+            }
+
+            console.log("Memuat Model AI...");
+            camStatus.innerText = "Memuat AI Pengawas...";
+
+            try {
+                model = await cocoSsd.load();
+                console.log("Model AI Siap!");
+                camStatus.innerText = "Pengawasan AI Aktif ✅";
+                camStatus.classList.add('text-green-600');
+
+                // Mulai Deteksi Loop
+                detectFrame();
+            } catch (err) {
+                console.error("Error loading AI:", err);
+            }
+        }
+
+        // Fungsi Deteksi Frame
+        function detectFrame() {
+            // Pastikan video sedang playing dan model sudah ada
+            if (video.readyState === 4 && model) {
+                model.detect(video).then(predictions => {
+
+                    let personCount = 0;
+                    let phoneDetected = false;
+
+                    predictions.forEach(prediction => {
+                        if (prediction.class === 'person') personCount++;
+                        if (prediction.class === 'cell phone') phoneDetected = true;
+                    });
+
+                    // LOGIKA KECURANGAN
+                    if (phoneDetected) {
+                        recordCheat("Objek HP di Kamera");
+                    }
+                    else if (personCount > 1) {
+                        recordCheat("Wajah Tambahan (Indikasi Joki)");
+                    }
+
+                    // Loop terus menerus
+                    requestAnimationFrame(detectFrame);
+                });
+            } else {
+                requestAnimationFrame(detectFrame);
+            }
+        }
+
+        // Fungsi Start Webcam (YANG SUDAH DIMODIFIKASI)
         function startWebcam() {
             camStatus.innerText = "Meminta Izin Kamera...";
 
@@ -308,17 +376,23 @@
                         video.srcObject = stream;
                         video.classList.remove('hidden');
                         webcamFallback.classList.add('hidden');
+
+                        // --- PERUBAHAN UTAMA DI SINI ---
+                        // Panggil AI langsung setelah kamera sukses menyala
+                        loadAIModel();
                     })
                     .catch(function(err) {
-                        camStatus.innerText = "Izin ditolak atau kamera tidak terdeteksi!";
+                        console.error(err);
+                        camStatus.innerText = "Izin ditolak / Kamera tidak ditemukan!";
                         camStatus.classList.replace('text-gray-500', 'text-red-500');
                         btnStartCam.classList.remove('hidden');
                     });
             } else {
-                camStatus.innerHTML = "Webcam diblokir.<br><b class='text-red-500'>Akses via localhost.</b>";
+                camStatus.innerHTML = "Webcam diblokir.<br><b class='text-red-500'>Akses via localhost/HTTPS.</b>";
             }
         }
 
+        // Jalankan saat halaman siap
         startWebcam();
         btnStartCam.addEventListener('click', startWebcam);
 
